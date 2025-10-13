@@ -13,11 +13,14 @@ import math
 def _deriv(state, v, deltaL, deltaR, L):
     x, y, theta = state
     ctheta = theta + math.pi/2
-    R = L/2 * (1/math.tan(deltaL) + 1/math.tan(deltaR))
+
+    dtheta = 0
+    if not (deltaL == 0 or deltaR == 0):
+        R = L/2 * (1/math.tan(deltaL) + 1/math.tan(deltaR))
+        dtheta = v / R
     
     dx = v * math.cos(ctheta)
     dy = v * math.sin(ctheta)
-    dtheta = v / R
 
     return dx, dy, dtheta
 
