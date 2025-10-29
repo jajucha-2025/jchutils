@@ -6,7 +6,7 @@ import cv2
 import os
 from enum import IntEnum
 from typing import Callable
-import numpy
+import numpy as np
 
 class CameraMode(IntEnum):
     JAJUCHA = 0 # 자주차
@@ -25,8 +25,8 @@ class Camera:
                 except NameError as e: # jchm가 정의되지 않았다면 (임포트되지 않았다면) NameError
                     raise ImportError("jchm 모듈을 사용할 수 없습니다.") from e
                 self.set_camera_device(device)
-                self.getFrame: Callable[[], numpy.ndarray] = self.__getJajuchaFrame
-                self.showFrame: Callable[[numpy.ndarray, int], None] = self.__showFrameOnJajucha
+                self.getFrame: Callable[[], np.ndarray] = self.__getJajuchaFrame
+                self.showFrame: Callable[[np.ndarray, int], None] = self.__showFrameOnJajucha
 
             elif mode is CameraMode.COMPUTER: # 로컬 컴퓨터 웹캠
                 self.set_camera_device(device)
@@ -77,11 +77,11 @@ class Camera:
     # --- JAJUCHA backend ---
 
     def __getJajuchaFrame(self):
-        if self.device == "lidar":
+        if self.device == "depth":
             return self.camera.get_depth()
         return self.camera.get_image(self.device)
 
-    def __showFrameOnJajucha(self, mat: numpy.ndarray, quality=80):
+    def __showFrameOnJajucha(self, mat: np.ndarray, quality=80):
         self.camera.show_image(mat, self.device, quality)
 
     # --- COMPUTER backend ---
@@ -92,7 +92,7 @@ class Camera:
             raise RuntimeError(f"카메라를 인식할 수 없습니다. (index {self.device})")
         return frame
 
-    def __showFrameOnComputer(self, mat: numpy.ndarray, quality=100):
+    def __showFrameOnComputer(self, mat: np.ndarray, quality=100):
         new_w = int(mat.shape[1]/(quality/100))
         new_h = int(mat.shape[0]/(quality/100))
         resized = cv2.resize(mat, (new_w, new_h))
