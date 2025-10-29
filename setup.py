@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="jchutils",
-    version="0.0.2",
+    version="0.0.7",
     description="Utils for jajucha",
     url="",
     author="Guhyeon Kang",
