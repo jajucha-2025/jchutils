@@ -108,3 +108,20 @@ def draw_map(img, theta, d):
     rslt_img[0:roi.shape[0], rslt_img.shape[1]//2 - roi.shape[1]//2:rslt_img.shape[1]//2 + roi.shape[1]//2] = roi
 
     return rslt_img
+
+def lidar2td(lidar_img):
+    ys, xs, _ = np.where((lidar_img != [0, 0, 0]).all(axis=2))
+
+    xs_centered = xs - rslt_img_size / 2
+    ys_centered = ys - rslt_img_size / 2
+
+    xs_rotated = ys_centered
+    ys_rotated = -xs_centered
+
+    xs_ld = xs_rotated / scale
+    ys_ld = ys_rotated / scale
+
+    thetas = np.rad2deg(np.arctan2(ys_ld, xs_ld))
+    dists = np.sqrt(xs_ld**2 + ys_ld**2)
+
+    return thetas, dists
