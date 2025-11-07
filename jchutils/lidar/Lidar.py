@@ -37,11 +37,12 @@ class Lidar:
         # to fit within the image size.
 
         # Define image size
-        img_size = 800  # Adjust the image size as needed
+        img_size = 400  # Adjust the image size as needed
         # max_dist = dist_array.max()
         # max_dist= 12000
 
         # Avoid division by zero if max_dist is zero
+        max_dist = 5000
         if max_dist == 0:
             max_dist = 1
 
