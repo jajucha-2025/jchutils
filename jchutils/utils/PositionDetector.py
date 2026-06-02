@@ -2,7 +2,6 @@ import math
 
 
 ### -----------------------------------
-### state: (x, y, theta)
 ### v: rear-wheel linear speed (cm/s)
 ### deltaL: steering angle - Left (rad)
 ### deltaR: steering angle - Right (rad)
@@ -15,8 +14,9 @@ import math
 ### =========================
 ### vehicle params
 ### =========================
-### 전부 _car에 속성 추가 요함 (현재 임시)
+### state: (x, y, theta)
 ###
+### 전부 _car에 속성 추가 요함 (현재 임시)
 ### L: wheelbase (cm) = 18.0
 ### T: track (cm) = 15.0
 ### KPO: kingpin offset (cm) = 1.4 
